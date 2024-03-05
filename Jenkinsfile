@@ -8,13 +8,13 @@ pipeline{
     
     agent any
 
-    stage{
+    stages{
         stage('Checkout Source'){
             steps{
                 git 'https://github.com/Vishalbb27/docker-react'
             }
         }
-    }
+    
     stage('Build image'){
         steps{
             script{
@@ -33,5 +33,6 @@ pipeline{
                 }
             }
         }
+    }
     }
 }
