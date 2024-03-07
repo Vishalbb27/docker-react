@@ -7,6 +7,7 @@ function App() {
       <h1>learn react!</h1>
       <h1>learn react in js!</h1>
       <h1>learn react in j!</h1>
+      <h2>learn react using javascript</h2>
     </div>
   );
 }
