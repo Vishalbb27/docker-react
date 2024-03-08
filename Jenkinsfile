@@ -8,7 +8,7 @@ pipeline {
 
         AWS_REGION = 'us-east-1'
         AWS_CREDENTIALS = 'AWS_ACCESS'
-        AWS_CLI = tool 'AWS_CLI'
+        AWS_CLI = aws 'AWS_CLI'
     }
 
     agent any
