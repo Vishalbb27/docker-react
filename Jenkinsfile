@@ -7,7 +7,10 @@ pipeline {
         PATH = "${dockerHome}/bin:${env.PATH}"
 
         AWS_REGION = 'us-east-1'
-        AWS_CREDENTIALS = 'AWS_ACCESS'
+        // AWS_CREDENTIALS = 'AWS_ACCESS'
+        AWS_ACCESS_KEY_ID = 'AKIAYRDE6LCETCMTTUHG'
+        AWS_SECRET_ACCESS_KEY = '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'
+        AWS_PROFILE = 'vishal'
         // AWS_CLI = aws 'AWS_CLI'
     }
 
@@ -37,10 +40,18 @@ pipeline {
                 }
             }
         }
+        stage('AWS Configure'){
+            steps{
+                sh "aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${AWS_PROFILE}"
+                sh "aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${AWS_PROFILE}"
+                sh "aws configure set region ${AWS_REGION} --profile ${AWS_PROFILE}"
+                sh "aws configure set output json --profile ${AWS_PROFILE}"
+            }
+        }
         stage('Deploying in AWS Beanstalk') {
             steps {
 
-                aws credentialsId: "${AWS_CREDENTIALS}",
+                // aws credentialsId: "${AWS_CREDENTIALS}",
                 
                 
                 script {
