@@ -41,9 +41,7 @@ pipeline {
             steps {
 
                 aws credentialsId: 'aws-credential'
-                aws region: 'us-east-1'
-                aws accessKey: '${AWS_ACCESS_KEY_ID}'
-                aws secretKey:'${AWS_SECRET_ACCESS_KEY}'
+                
                 
                 script {
                     def awsCli = '/usr/local/bin/aws'
