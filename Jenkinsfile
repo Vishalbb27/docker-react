@@ -40,8 +40,10 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
 
-                withAWS(credentials:AWS_CREDENTIALS,region:AWS_REGION) {
-                    s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'New Text Document.txt', force:true)
+                aws credentialsId: 'aws-credential',
+                    region: 'us-east-1',
+                    accessKey: '${AWS_ACCESS_KEY_ID}',
+                    secretKey:'${AWS_SECRET_ACCESS_KEY}'
                 
                 script {
                     def awsCli = '/usr/local/bin/aws'
@@ -102,7 +104,6 @@ pipeline {
                     }
 
                     echo "Deployment and Docker run successful!"
-                }
                 }
             }
         }
