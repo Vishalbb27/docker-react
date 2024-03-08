@@ -11,10 +11,6 @@ pipeline {
         AWS_CLI = aws 'AWS_CLI'
     }
 
-    options{
-        withAWS(credentials:AWS_CREDENTIALS,region:AWS_REGION)
-    }
-
     agent any
 
     stages {
@@ -43,7 +39,10 @@ pipeline {
         }
         stage('Deploying in AWS Beanstalk') {
             steps {
-                s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'.', force:true)
+
+                withAWS(credentials:AWS_CREDENTIALS,region:AWS_REGION) {
+                    s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'.', force:true)
+                }
                 // script {
                     // def awsCli = '/path/to/aws'
                     // PATH = "${awsCli}:${env.PATH}"
