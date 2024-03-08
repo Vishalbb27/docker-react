@@ -8,7 +8,7 @@ pipeline {
 
         AWS_REGION = 'us-east-1'
         AWS_CREDENTIALS = 'AWS_ACCESS'
-        AWS_CLI = aws 'AWS_CLI'
+        // AWS_CLI = aws 'AWS_CLI'
     }
 
     agent any
@@ -40,15 +40,15 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
 
-                withAWS(credentials:AWS_CREDENTIALS,region:AWS_REGION) {
-                    s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'New Text Document.txt', force:true)
-                }
-                // script {
-                    // def awsCli = '/path/to/aws'
+                // withAWS(credentials:AWS_CREDENTIALS,region:AWS_REGION) {
+                //     s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'New Text Document.txt', force:true)
+                // }
+                script {
+                    def awsCli = '/usr/local/bin/aws'
                     // PATH = "${awsCli}:${env.PATH}"
-                    // def environmentName = 'Frontend-env-1'
-                    // def applicationName = 'frontend'
-                    // def versionLabel = "v-${System.currentTimeMillis()}"
+                    def environmentName = 'Frontend-env-1'
+                    def applicationName = 'frontend'
+                    def versionLabel = "v-${System.currentTimeMillis()}"
 
 
 
@@ -66,43 +66,43 @@ pipeline {
                     // Build your application or copy the artifacts to a deployable directory
 
                     // Create a new Elastic Beanstalk application version
-                    // def createApplicationVersionCommand = "$AWS_CLI elasticbeanstalk create-application-version " +
-                    //         "--application-name $applicationName " +
-                    //         "--version-label $versionLabel " +
-                    //         "--source-bundle S3Bucket=your-s3-bucket-name,S3Key=your-artifact-path.zip"
-                    // def createApplicationVersionResult = createApplicationVersionCommand.execute()
-                    // createApplicationVersionResult.waitFor()
+                    def createApplicationVersionCommand = "$awsCli elasticbeanstalk create-application-version " +
+                            "--application-name $applicationName " +
+                            "--version-label $versionLabel " +
+                            "--source-bundle S3Bucket=your-s3-bucket-name,S3Key=your-artifact-path.zip"
+                    def createApplicationVersionResult = createApplicationVersionCommand.execute()
+                    createApplicationVersionResult.waitFor()
 
                     
 
-                    // if (createApplicationVersionResult.exitValue() != 0) {
-                    //     error "Failed to create application version. ${createApplicationVersionResult.err.text}"
-                    // }
-                    // echo "Excuted create application"
+                    if (createApplicationVersionResult.exitValue() != 0) {
+                        error "Failed to create application version. ${createApplicationVersionResult.err.text}"
+                    }
+                    echo "Excuted create application"
 
-                    // Deploy the new version to the environment
-                    // def updateEnvironmentCommand = "$awsCli elasticbeanstalk update-environment " +
-                    //         "--application-name $applicationName " +
-                    //         "--environment-name $environmentName " +
-                    //         "--version-label $versionLabel"
-                    // def updateEnvironmentResult = updateEnvironmentCommand.execute()
-                    // updateEnvironmentResult.waitFor()
+                    Deploy the new version to the environment
+                    def updateEnvironmentCommand = "$awsCli elasticbeanstalk update-environment " +
+                            "--application-name $applicationName " +
+                            "--environment-name $environmentName " +
+                            "--version-label $versionLabel"
+                    def updateEnvironmentResult = updateEnvironmentCommand.execute()
+                    updateEnvironmentResult.waitFor()
 
-                    // if (updateEnvironmentResult.exitValue() != 0) {
-                    //     error "Failed to update environment. ${updateEnvironmentResult.err.text}"
-                    // }
+                    if (updateEnvironmentResult.exitValue() != 0) {
+                        error "Failed to update environment. ${updateEnvironmentResult.err.text}"
+                    }
 
-                    // Run Docker image in the Elastic Beanstalk environment
-                    // def dockerRunCommand = "docker run -d -p 80:80 $dockerimagename"
-                    // def dockerRunResult = dockerRunCommand.execute()
-                    // dockerRunResult.waitFor()
+                    Run Docker image in the Elastic Beanstalk environment
+                    def dockerRunCommand = "docker run -d -p 80:80 $dockerimagename"
+                    def dockerRunResult = dockerRunCommand.execute()
+                    dockerRunResult.waitFor()
 
-                    // if (dockerRunResult.exitValue() != 0) {
-                    //     error "Failed to run Docker image. ${dockerRunResult.err.text}"
-                    // }
+                    if (dockerRunResult.exitValue() != 0) {
+                        error "Failed to run Docker image. ${dockerRunResult.err.text}"
+                    }
 
-                    // echo "Deployment and Docker run successful!"
-                // }
+                    echo "Deployment and Docker run successful!"
+                }
             }
         }
     }
