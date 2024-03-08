@@ -45,6 +45,7 @@ pipeline {
                     def versionLabel = "v-${System.currentTimeMillis()}"
 
 
+
                     // Install Docker on the deployment environment
                     def installDockerCommand = 'sudo curl -fsSL https://get.docker.com | sh'
                     def installDockerResult = installDockerCommand.execute()
@@ -53,6 +54,8 @@ pipeline {
                     if (installDockerResult.exitValue() != 0) {
                         error "Failed to install Docker. ${installDockerResult.err.text}"
                     }
+
+                    echo "Docker installed"
 
                     // Build your application or copy the artifacts to a deployable directory
 
@@ -64,9 +67,12 @@ pipeline {
                     def createApplicationVersionResult = createApplicationVersionCommand.execute()
                     createApplicationVersionResult.waitFor()
 
+                    
+
                     if (createApplicationVersionResult.exitValue() != 0) {
                         error "Failed to create application version. ${createApplicationVersionResult.err.text}"
                     }
+                    echo "Excuted create application"
 
                     // Deploy the new version to the environment
                     def updateEnvironmentCommand = "$awsCli elasticbeanstalk update-environment " +
