@@ -44,7 +44,7 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
                 s3Download(file:'New Text Document.txt', bucket:'swas-demo', path:'.', force:true)
-                script {
+                // script {
                     // def awsCli = '/path/to/aws'
                     // PATH = "${awsCli}:${env.PATH}"
                     // def environmentName = 'Frontend-env-1'
@@ -103,7 +103,7 @@ pipeline {
                     // }
 
                     // echo "Deployment and Docker run successful!"
-                }
+                // }
             }
         }
     }
