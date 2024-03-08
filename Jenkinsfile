@@ -7,7 +7,8 @@ pipeline {
         PATH = "${dockerHome}/bin:${env.PATH}"
 
         AWS_REGION = 'us-east-1'
-        AWS_CREDENTIALS = 'AWS_KEYS'
+        AWS_CREDENTIALS = 'AWS_ACCESS'
+        AWS_CLI = tool 'AWS_CLI'
     }
 
     agent any
@@ -39,7 +40,7 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
                 script {
-                    def awsCli = 'aws'
+                    def awsCli = '/path/to/aws'
                     def environmentName = 'Frontend-env-1'
                     def applicationName = 'frontend'
                     def versionLabel = "v-${System.currentTimeMillis()}"
