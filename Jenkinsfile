@@ -8,9 +8,9 @@ pipeline {
 
         AWS_REGION = 'us-east-1'
         // AWS_CREDENTIALS = 'AWS_ACCESS'
-        AWS_ACCESS_KEY_ID = 'AKIAYRDE6LCETCMTTUHG'
-        AWS_SECRET_ACCESS_KEY = '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'
-        AWS_PROFILE = 'vishal'
+        AWS_ACCESS_KEY_ID = 'ACCES_KEY'
+        AWS_SECRET_ACCESS_KEY = 'SECRET_KEY'
+        AWS_PROFILE = 'PROFILE'
         // AWS_CLI = aws 'AWS_CLI'
     }
 
