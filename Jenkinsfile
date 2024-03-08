@@ -41,6 +41,7 @@ pipeline {
             steps {
                 script {
                     def awsCli = '/path/to/aws'
+                    env.PATH = "${awsCli}:${env.PATH}"
                     def environmentName = 'Frontend-env-1'
                     def applicationName = 'frontend'
                     def versionLabel = "v-${System.currentTimeMillis()}"
