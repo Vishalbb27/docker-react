@@ -40,10 +40,10 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
 
-                aws credentialsId: 'aws-credential',
-                    region: 'us-east-1',
-                    accessKey: '${AWS_ACCESS_KEY_ID}',
-                    secretKey:'${AWS_SECRET_ACCESS_KEY}'
+                aws credentialsId: 'aws-credential'
+                aws region: 'us-east-1'
+                aws accessKey: '${AWS_ACCESS_KEY_ID}'
+                aws secretKey:'${AWS_SECRET_ACCESS_KEY}'
                 
                 script {
                     def awsCli = '/usr/local/bin/aws'
