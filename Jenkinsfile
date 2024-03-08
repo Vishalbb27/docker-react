@@ -40,8 +40,8 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
                 script {
-                    def awsCli = '/path/to/aws'
-                    env.PATH = "${awsCli}:${env.PATH}"
+                    // def awsCli = '/path/to/aws'
+                    // PATH = "${awsCli}:${env.PATH}"
                     def environmentName = 'Frontend-env-1'
                     def applicationName = 'frontend'
                     def versionLabel = "v-${System.currentTimeMillis()}"
@@ -62,7 +62,7 @@ pipeline {
                     // Build your application or copy the artifacts to a deployable directory
 
                     // Create a new Elastic Beanstalk application version
-                    def createApplicationVersionCommand = "$awsCli elasticbeanstalk create-application-version " +
+                    def createApplicationVersionCommand = "$AWS_CLI elasticbeanstalk create-application-version " +
                             "--application-name $applicationName " +
                             "--version-label $versionLabel " +
                             "--source-bundle S3Bucket=your-s3-bucket-name,S3Key=your-artifact-path.zip"
