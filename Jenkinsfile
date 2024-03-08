@@ -40,7 +40,7 @@ pipeline {
         stage('Deploying in AWS Beanstalk') {
             steps {
 
-                aws credentialsId: 'AWS_ACCESS',
+                aws credentialsId: "${AWS_CREDENTIALS}",
                 
                 
                 script {
