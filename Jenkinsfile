@@ -80,7 +80,7 @@ pipeline {
                     }
                     echo "Excuted create application"
 
-                    Deploy the new version to the environment
+                    // Deploy the new version to the environment
                     def updateEnvironmentCommand = "$awsCli elasticbeanstalk update-environment " +
                             "--application-name $applicationName " +
                             "--environment-name $environmentName " +
@@ -92,7 +92,7 @@ pipeline {
                         error "Failed to update environment. ${updateEnvironmentResult.err.text}"
                     }
 
-                    Run Docker image in the Elastic Beanstalk environment
+                    // Run Docker image in the Elastic Beanstalk environment
                     def dockerRunCommand = "docker run -d -p 80:80 $dockerimagename"
                     def dockerRunResult = dockerRunCommand.execute()
                     dockerRunResult.waitFor()
