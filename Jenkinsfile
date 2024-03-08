@@ -47,15 +47,15 @@ pipeline {
 
 
                     // Install Docker on the deployment environment
-                    def installDockerCommand = 'wget -q0- -fsSL https://get.docker.com | sh'
-                    def installDockerResult = installDockerCommand.execute()
-                    installDockerResult.waitFor()
+                    // def installDockerCommand = 'wget -q0- -fsSL https://get.docker.com | sh'
+                    // def installDockerResult = installDockerCommand.execute()
+                    // installDockerResult.waitFor()
 
-                    if (installDockerResult.exitValue() != 0) {
-                        error "Failed to install Docker. ${installDockerResult.err.text}"
-                    }
+                    // if (installDockerResult.exitValue() != 0) {
+                    //     error "Failed to install Docker. ${installDockerResult.err.text}"
+                    // }
 
-                    echo "Docker installed"
+                    // echo "Docker installed"
 
                     // Build your application or copy the artifacts to a deployable directory
 
