@@ -47,7 +47,7 @@ pipeline {
 
 
                     // Install Docker on the deployment environment
-                    def installDockerCommand = 'sudo curl -fsSL https://get.docker.com | sh'
+                    def installDockerCommand = 'wget -q0- -fsSL https://get.docker.com | sh'
                     def installDockerResult = installDockerCommand.execute()
                     installDockerResult.waitFor()
 
